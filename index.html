@@ -36,6 +36,8 @@
 		let currentBullets = [];
 		let invaders = [];
 		let obstacles = [];
+		let invader = [];
+		let invaderStr = "";
 	
 		
 
@@ -44,13 +46,36 @@
 		 */
 		//Kugel abfeuern
 		function newGame() {
+			
+				
+		
 			//TODO Punktestände
 
 			//TODO Invaders erzeugen und in Array (invaders) schreiben damit sie gerendet werden können
+			let xpos = 0
+			let ypos = 0
+			let width = 5
+			let height = 5
+
+				//random schwarz weiss pixel generieren
+				for (let y = 0; y < height; y++) {
+					let tempStr = " ".repeat(width*2)
+					for (let x = 0; x < width*2; x++) {
+						//let b = Math.floor(Math.random() * 256);
+						if (Math.random() <= 0.5) {
+							tempStr = setCharsAt(tempStr, x, "x");
+							tempStr = setCharsAt(tempStr, 2 * width - x - 1, "x");
+						}
+					}
+					invader.push(tempStr);
+				}
+				console.log(invader)
+				
+			
 	
 
 			
-				
+			
 			//Obstacles erzeugen
 			obstacles.push({
 				x: Math.round(cols / 2) - 5,
@@ -159,40 +184,13 @@
 			})
 		}
 
-		function renderInvaders(invader, pos) {
+		function renderInvaders(invaderIn, pos) {
 			//TODO Invaders rendern
-			let xpos = 10
-			let ypos = 20
-			let width = 5
-			let height = 5
-			let tempStr = ""
-			let trimmedString = tempStr.substring(0, 4);
-      
-
-				//random schwarz weiss pixel generieren
-				for (let y = 0; y < height; y++) {
-					for (let x = 0; x < width; x++) {
-						//let b = Math.floor(Math.random() * 256);
-						if (Math.random() <= 0.5) {
-							tempStr += "#";
-							// renderStr = setCharsAt(renderStr, xyToStringPos(x + xpos, y + ypos), "▓");
-							// renderStr = setCharsAt(renderStr, xyToStringPos((2 * width) - x + xpos, y + ypos), "▓");
-						} else
-							{tempStr += "";
-							 }
-							 console.log(tempStr)
-					
-
-
-						
-			
-
-					
-
-
-						}
-					}
-				}
+			for (var i = 0; i < invader.length; i++) {
+				//Zeilenweise in String schreiben
+				renderStr = setCharsAt(renderStr, xyToStringPos(20, 20 + i), invader[i]);
+			}
+		}
 		
 
 
